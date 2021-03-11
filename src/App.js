@@ -4,8 +4,26 @@ import React, { useEffect, useState } from "react";
 
 function App() {
   const [searchResults, setSearchResults] = useState([]);
-  const [blue, setBlue] = useState(false);
-  const [green, setGreen] = useState(false);
+  const colorNames = [
+    "red",
+    "blue",
+    "green",
+    "yellow",
+    "orange",
+    "black",
+    "white",
+    "brown",
+    "gold",
+    "silver",
+  ];
+
+  const [colorState, setColorState] = useState(
+    colorNames.reduce((acc, color) => {
+      acc[color] = false;
+      return acc;
+    }, {})
+  );
+
   function authenticate() {
     return window.gapi.auth2
       .getAuthInstance()
@@ -59,11 +77,16 @@ function App() {
         </button>
         <button
           onClick={() => {
+            const checkedColors = colorNames
+              .filter((color) => colorState[color])
+              .map((color) => `"${color}"`);
             window.gapi.client.youtube.search
               .list({
                 part: ["snippet"],
                 maxResults: 25,
-                q: `${blue ? "blue" : ""} ${green ? "green" : ""} eyeshadow`,
+                q: `${
+                  checkedColors.length ? checkedColors.join(" ") : "natural"
+                } eyeshadow`,
               })
               .then(
                 function (response) {
@@ -80,20 +103,22 @@ function App() {
           Search
         </button>
       </header>
-      <label htmlFor="blue">Blue</label>
-      <input
-        name="blue"
-        type="checkbox"
-        checked={blue}
-        onChange={() => setBlue(!blue)}
-      />
-      <label htmlFor="green">Green</label>
-      <input
-        name="green"
-        type="checkbox"
-        checked={green}
-        onChange={() => setGreen(!green)}
-      />
+      {colorNames.map((color) => (
+        <div key={color}>
+          <label htmlFor={color}>
+            {color[0].toUpperCase() + color.slice(1)}
+          </label>
+          <input
+            name={color}
+            type="checkbox"
+            checked={colorState[color]}
+            onChange={() =>
+              setColorState({ ...colorState, [color]: !colorState[color] })
+            }
+          />
+        </div>
+      ))}
+
       {searchResults.slice(0, 5).map((sr) => (
         <div key={sr.id.videoId}>
           <iframe
