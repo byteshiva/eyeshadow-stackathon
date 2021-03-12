@@ -14,6 +14,7 @@ function App() {
     "white",
     "brown",
     "purple",
+    "pink",
     "gold",
     "silver",
     "rainbow",
