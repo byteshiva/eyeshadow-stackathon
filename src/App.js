@@ -13,8 +13,12 @@ function App() {
     "black",
     "white",
     "brown",
+    "purple",
     "gold",
     "silver",
+    "rainbow",
+    "festival",
+    "glitter",
   ];
 
   const [colorState, setColorState] = useState(
