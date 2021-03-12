@@ -128,7 +128,7 @@ function App() {
         <div key={sr.id.videoId}>
           <iframe
             title={sr.id.videoId}
-            width="420"
+            width="700"
             height="345"
             src={`https://www.youtube.com/embed/${sr.id.videoId}`}
           ></iframe>
