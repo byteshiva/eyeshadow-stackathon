@@ -16,6 +16,7 @@ function App() {
     "pink",
     "gold",
     "silver",
+    "natural",
     "rainbow",
     "festival",
     "glitter",
