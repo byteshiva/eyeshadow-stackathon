@@ -96,7 +96,7 @@ function App() {
         Search
       </button>
 
-      {searchResults.slice(0, 5).map((sr) => (
+      {searchResults.slice(0, 10.map((sr) => (
         <div key={sr.id.videoId}>
           <iframe
             title={sr.id.videoId}
